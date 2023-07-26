@@ -1,6 +1,7 @@
 name: Build and Release Extension
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
@@ -98,11 +99,9 @@ jobs:
           git push
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.1
+        uses: helm/chart-releaser-action@v1.5.0
         with:
           charts_dir: ./charts/*
-          skip_packaging: true
         env:
           CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           CR_SKIP_EXISTING: true
-          CR_PACKAGE_PATH: ./
