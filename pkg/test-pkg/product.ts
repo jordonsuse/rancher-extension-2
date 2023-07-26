@@ -10,3 +10,4 @@ export function init($plugin: IPlugin, store: any) {
     inStore: 'management',
     weight:  100
   });
+}
