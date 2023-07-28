@@ -36,7 +36,7 @@ usage() {
   exit 1
 }
 
-while getopts "hvr:o:pi:fcbt:s:" opt; do
+while getopts "hvr:o:pi:fcb:t:s:" opt; do
   case $opt in
     h)
       usage
@@ -159,7 +159,8 @@ if [ "${GITHUB_BUILD}" == "false" ]; then
   fi
 
   if [ -n "${GITHUB_RELEASE_TAG}" ] && [[ ${GITHUB_RELEASE_TAG} != "${BASE_EXT}-${EXT_VERSION}" ]]; then
-    echo -e "${YELLOW}Github tagged release name does not match ${BOLD}${BASE_EXT}-${EXT_VERSION}${RESET}${YELLOW} - Stopping build${RESET}"
+    echo -e "${YELLOW}Github tagged release name does not match ${RESET}${BOLD}${BASE_EXT}-${EXT_VERSION}${RESET}"
+    echo -e "${YELLOW}Stopping build${RESET}"
     exit 1
   fi
 
@@ -204,7 +205,8 @@ for d in pkg/*/ ; do
 
     # Skip the build for a package that does not match the tagged release name
     if [[ -n "${GITHUB_RELEASE_TAG}" ]] && [ ${GITHUB_BUILD} == "true" ] && [[ ${GITHUB_RELEASE_TAG} != ${PKG_NAME} ]]; then
-      echo -e "${YELLOW}Github release tag does not match asset name - skipping${RESET}"
+      echo -e "${YELLOW}Github release tag ${RESET}${BOLD}${GITHUB_RELEASE_TAG}${RESET}${YELLOW} does not match asset name${RESET}"
+      echo -e "${YELLOW}Skipping ${RESET}${BOLD}${PKG_NAME}${RESET}"
       continue
     fi
 
@@ -321,6 +323,15 @@ for d in pkg/*/ ; do
     BUILT="true"
   fi
 done
+
+if [ "${GITHUB_BUILD}" == "true" ] && [[ -n "${GITHUB_RELEASE_TAG}" ]] && [ "${BUILT}" == "false" ]; then
+  echo -e "${YELLOW}Github release tag ${RESET}${BOLD}${GITHUB_RELEASE_TAG}${YELLOW} did not match any package name.${RESET}"
+  echo -e "${YELLOW}Stopping build${RESET}"
+
+  rm -rf ${CHART_TMP}
+  rm -rf ${TMP} 
+  exit 1
+fi
 
 if [ -f ${ROOT_INDEX} ] && [ "${GITHUB_BUILD}" == "false" ]; then
   UPDATE="--merge ${ROOT_INDEX}"
