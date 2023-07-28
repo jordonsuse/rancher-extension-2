@@ -325,7 +325,7 @@ for d in pkg/*/ ; do
 done
 
 if [ "${GITHUB_BUILD}" == "true" ] && [[ -n "${GITHUB_RELEASE_TAG}" ]] && [ "${BUILT}" == "false" ]; then
-  echo -e "${YELLOW}Github release tag ${RESET}${BOLD}${GITHUB_RELEASE_TAG}${YELLOW} did not match any package name.${RESET}"
+  echo -e "${YELLOW}Github release tag ${RESET}${BOLD}${GITHUB_RELEASE_TAG}${RESET}${YELLOW} did not match any package name.${RESET}"
   echo -e "${YELLOW}Stopping build${RESET}"
 
   rm -rf ${CHART_TMP}
