@@ -3,7 +3,7 @@ name: Build and Release Extension
 on:
   workflow_dispatch:
   release:
-    types: [published]
+    types: [released]
 
 env:
   ACTIONS_RUNNER_DEBUG: false

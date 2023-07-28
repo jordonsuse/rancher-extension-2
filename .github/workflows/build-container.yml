@@ -3,7 +3,7 @@ name: Build and release container to registry
 on:
   workflow_dispatch:
   release:
-    types: [published]
+    types: [released]
 
 env:
   REGISTRY: ghcr.io
