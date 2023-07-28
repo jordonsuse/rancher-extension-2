@@ -2,8 +2,8 @@ name: Build and release container to registry
 
 on:
   workflow_dispatch:
-  # release:
-  #   types: [published]
+  release:
+    types: [published]
 
 env:
   REGISTRY: ghcr.io
@@ -60,4 +60,5 @@ jobs:
 
       - name: Build and push UI image
         run: |
-          yarn publish-pkgs -cp -r ${{ env.REGISTRY }} -o ${{ github.repository_owner }}
+          chmod -R +x ./scripts
+          ./scripts/publish -cp -r ${{ env.REGISTRY }} -o ${{ github.repository_owner }} -t ${{ github.ref_name }}

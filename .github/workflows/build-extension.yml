@@ -63,7 +63,7 @@ jobs:
         run: |
           chmod -R +x ./scripts
           echo -e "Github ref_name: ${{ github.ref_name }}"
-          ./scripts/publish -s "${{ github.repository }}" -b gh-pages
+          ./scripts/publish -s "${{ github.repository }}" -b gh-pages -t ${{ github.ref_name }}
 
       - name: Upload charts artifact
         uses: actions/upload-artifact@v3
