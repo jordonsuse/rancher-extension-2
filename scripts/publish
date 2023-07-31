@@ -96,7 +96,7 @@ if [ "${GITHUB_BUILD}" == "true" ]; then
   echo -e "${CYAN}GitHub Branch    : ${GITHUB_BRANCH}${RESET}"
 
   if [[ -n "${GITHUB_RELEASE_TAG}" ]]; then
-    echo -e "${CYAN}GitHub Release Tag: ${GITHUB_RELEASE_TAG}${RESET}"
+    echo -e "${CYAN}GitHub Release   : ${GITHUB_RELEASE_TAG}${RESET}"
   fi
 else
   echo -e ${CYAN}"Image prefix: ${IMAGE_PREFIX}${RESET}"
