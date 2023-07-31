@@ -94,6 +94,10 @@ if [ "${GITHUB_BUILD}" == "true" ]; then
 
   echo -e "${CYAN}GitHub Repository: ${GITHUB_SOURCE}${RESET}"
   echo -e "${CYAN}GitHub Branch    : ${GITHUB_BRANCH}${RESET}"
+
+  if [[ -n "${GITHUB_RELEASE_TAG}" ]]; then
+    echo -e "${CYAN}GitHub Release Tag: ${GITHUB_RELEASE_TAG}${RESET}"
+  fi
 else
   echo -e ${CYAN}"Image prefix: ${IMAGE_PREFIX}${RESET}"
 fi
@@ -353,7 +357,11 @@ else
 fi
 
 if [ "${GITHUB_BUILD}" == "true" ] && [ -f ${ROOT_INDEX} ]; then
-  cp ${ROOT_INDEX} tmp
+  if [[ -n "${GITHUB_RELEASE_TAG}" ]] && [ -f ${ASSETS}/index.yaml ]; then
+    cp ${ASSETS}/index.yaml tmp
+  else
+    cp ${ROOT_INDEX} tmp
+  fi
 fi
 
 if [ "${GITHUB_BUILD}" == "true" ] && [ "${BUILT}" == "true" ]; then
