@@ -1,0 +1,44 @@
+name: Build and Release Extensions
+
+on:
+  release:
+    types: [released]
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./
+
+jobs:
+  build-extension-charts:
+    name: Build and release Extension charts
+    uses: jordojordo/ui-chart-workflow/.github/workflows/build-extension-charts.yml@main
+    permissions:
+      actions: write
+      contents: write
+      deployments: write
+      id-token: write
+      packages: write
+      pages: write
+      pull-requests: write
+    with:
+      target_branch: gh-pages
+      tagged_release: ${{ github.ref_name }}
+  
+  build-extension-catalog:
+    name: Build and release Extension Catalog Image
+    uses: jordojordo/ui-chart-workflow/.github/workflows/build-extension-catalog.yml@main
+    permissions:
+      actions: write
+      contents: write
+      deployments: write
+      id-token: write
+      packages: write
+      pages: write
+      pull-requests: write
+    with:
+      registry_target: ghcr.io
+      registry_user: ${{ github.actor }}
+      tagged_release: ${{ github.ref_name }}
+    secrets: 
+      registry_token: ${{ secrets.GITHUB_TOKEN }}
