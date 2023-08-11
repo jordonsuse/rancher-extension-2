@@ -1,10 +1,8 @@
 name: Build and Release Extensions
 
 on:
-  workflow_dispatch:
-    
-  # release:
-  #   types: [released]
+  release:
+    types: [released]
 
 defaults:
   run:
@@ -25,7 +23,7 @@ jobs:
       pull-requests: write
     with:
       target_branch: gh-pages
-      # tagged_release: ${{ github.ref_name }}
+      tagged_release: ${{ github.ref_name }}
   
   build-extension-catalog:
     name: Build and release Extension Catalog Image
@@ -41,6 +39,6 @@ jobs:
     with:
       registry_target: ghcr.io
       registry_user: ${{ github.actor }}
-      # tagged_release: ${{ github.ref_name }}
+      tagged_release: ${{ github.ref_name }}
     secrets: 
       registry_token: ${{ secrets.GITHUB_TOKEN }}
