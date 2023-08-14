@@ -14,12 +14,8 @@ jobs:
     uses: jordojordo/ui-chart-workflow/.github/workflows/build-extension-catalog.yml@main
     permissions:
       actions: write
-      contents: write
-      deployments: write
-      id-token: write
+      contents: read
       packages: write
-      pages: write
-      pull-requests: read
     with:
       registry_target: ghcr.io
       registry_user: ${{ github.actor }}

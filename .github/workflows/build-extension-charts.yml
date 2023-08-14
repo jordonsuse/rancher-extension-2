@@ -16,10 +16,7 @@ jobs:
       actions: write
       contents: write
       deployments: write
-      id-token: write
-      packages: write
       pages: write
-      pull-requests: read
     with:
       target_branch: gh-pages
       tagged_release: ${{ github.ref_name }}
